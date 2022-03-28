@@ -2,6 +2,8 @@ package com.buffalo.moviebooking.model.data;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,8 +23,8 @@ public class Employee {
     private String password;
 
     @JsonManagedReference
-    @OneToMany( )
-    //@Fetch(FetchMode.SELECT)
+    @OneToMany( fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
     @JoinColumn(name = "employee_reserved_id" , referencedColumnName = "employee_id")
     List<Reservations> reservations = new ArrayList<>();
 

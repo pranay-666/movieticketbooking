@@ -1,7 +1,8 @@
 package com.buffalo.moviebooking.controllers;
 
 import com.buffalo.moviebooking.model.data.Employee;
-import com.buffalo.moviebooking.repository.MoviesRepository;
+import com.buffalo.moviebooking.model.data.SeatReservations;
+import com.buffalo.moviebooking.repository.SeatReservationRepo;
 import com.buffalo.moviebooking.services.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +15,16 @@ import java.util.List;
 public class BookingController {
 
     private final BookingService bookingService;
-    private final MoviesRepository moviesRepository;
+    private final SeatReservationRepo seatReservationRepo;
 
     @GetMapping(value = "/all/employee")
-    public List<Employee> getAllEmployeesData(){
+    public List<Employee> getAllEmployeesData() {
         return bookingService.getAllEmployeesData();
     }
+
+    @GetMapping(value = "/all/seat/")
+    public SeatReservations getSeatService() {
+        return seatReservationRepo.findById("12419").get();
+    }
+
 }

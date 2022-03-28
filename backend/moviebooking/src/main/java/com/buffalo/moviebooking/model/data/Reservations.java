@@ -1,7 +1,10 @@
 package com.buffalo.moviebooking.model.data;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 
@@ -14,17 +17,27 @@ public class Reservations {
     @Id
     private Integer reservationId;
 
+//    @JsonBackReference
+//    @OneToOne(  fetch = FetchType.LAZY , targetEntity = SeatReservations.class)
+//    @Fetch(FetchMode.SELECT)
+//    @JoinColumn(name = "reservation_id")
+//    private SeatReservations seatReservation;
+
     @Column(name = "screening_id")
-    private Integer screeningId;
+    private String screeningId;
 
-
+    @JsonManagedReference
+    @OneToOne(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
+    @JoinColumn(name = "screening_id" , nullable = false , insertable = false , updatable = false)
+    private Screening screening;
 
     @Column(name = "employee_reserved_id")
     private Integer employeeId;
 
     @JsonBackReference
-    @ManyToOne()
-  //  @Fetch(FetchMode.SELECT)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SELECT)
     @JoinColumn(name="employee_reserved_id", nullable=false , insertable = false , updatable = false)
     private Employee employee;
 
