@@ -18,10 +18,9 @@ public class Seat {
     private String seatId;
 
     @JsonBackReference
-    @OneToOne( mappedBy = "seat", fetch = FetchType.EAGER)
+    @OneToOne( mappedBy = "seat", fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     private SeatReservations seatReservation;
-
 
     @Column(name = "seat_row")
     private Integer row;
